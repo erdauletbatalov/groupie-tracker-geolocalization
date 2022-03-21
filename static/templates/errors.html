@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/css/errorstyle.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="/static/img/ico.png" type="image/x-icon">
+    <title>Something went wrong...</title>
+    
+</head>
+<body>
+    <img class="back" src="/static/img/background.jpg" alt="">
+    <div class="main">
+            <h1 class="errnum">{{.}}</h1>
+            {{ if eq . 404 }}
+            <p class="msg">There is no such page </p>
+            {{ else if eq . 405 }}
+            <p class="msg">Method Not Allowed. You are not allowed to use such method in this page :(</p>
+            {{ else if eq . 400 }}
+            <p class="msg">Bad request.  :(</p>
+            {{ else if eq . 500 }}
+            <p class="msg">Unfortunately :( , the server crushed, but it's not your fault</p>
+            {{end}}
+            <a href="/" class="btnHome">Go back :)</a> 
+    </div>
+</body>
+</html>

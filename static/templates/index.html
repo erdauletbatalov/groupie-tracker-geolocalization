@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="shortcut icon" href="/static/img/ico.png" type="image/x-icon">
+    <title>Groupie tracker</title>
+</head>
+<body>
+    <img class="back" src="/static/img/background.jpg" alt="">
+    <header>
+        <div class="header__menu">
+            <a href="/" class="btnHome">HOME</a> 
+            <form action="/search-filter" method="POST">
+                <div class="search_block">
+                    <input class="search" type="text" list="search" id="search-choice" placeholder="Search..." name="search" required />
+                    <button class="btnSearch" type="submit" name="submit" style="float: right"><img src="/static/img/search.png" alt=""></button>
+
+                    <datalist id="search">
+                        {{ range .General.Artists }}
+                            <option value="{{ .Name }} -> artist/band">{{ .Name }} -> artist/band</option>
+                        {{ end }}
+                        {{ range .General.Artists }}
+                            {{ range .Members }}
+                                <option value="{{ . }} -> members">{{ . }} -> members</option>
+                            {{ end }}
+                        {{ end }}
+                        {{ range .General.Artists }}
+                            <option value="{{ .CreationDate }} -> creation date">{{ .CreationDate }} -> creation date</option>
+                        {{ end }}
+                        {{ range .General.Artists }}
+                            <option value="{{ .FirstAlbum }} -> first album">{{ .FirstAlbum }} -> first album</option>
+                        {{ end }}
+                        {{ range .General.Cities }}
+                            <option value="{{ .Name }} -> location">{{ .Name }} -> location</option>
+                        {{ end }}
+                    </datalist>
+
+                    <div>
+                        <input class="custom-checkbox" type="checkbox" id="FLTR" name="FLTR" onclick="show('FLTR', 'filterAll')"/>
+                                <label for="FLTR" style="color: black;">Filter</label>
+                        <!-- <div id="first" class="filterShow" onclick="toggle('first', 'sec', 'filterAll')">Filter</div>
+                        <div id="sec" class="filterShow" style="display: none;" onclick="toggle('first', 'sec', 'filterAll')">Filter</div> -->
+
+                            <select class="search_filter" name="search_filter" id="categories">
+                                <option selected value="all">all</option>
+                                <option value="artist">artist/band</option>
+                                <option value="members">members</option>
+                                <option value="creation">creation date</option>
+                                <option value="album">album</option>
+                                <option value="location">location</option>
+                            </select>
+                    </div>
+                    <div class="filterAll" id="filterAll">
+                        <div>
+                            <div>
+                                <input class="custom-checkbox" type="checkbox" id="CD" name="CD" onclick="show('CD', 'demoCD')">
+                                <label for="CD">Creation Date</label>
+                            </div>
+                            <div id="demoCD" style="display:none">
+                                    <input type="number" min="1800" max="2021" class="from__textarea" name="fromCreation" placeholder="from...">
+                                    <input type="number" min="1800" max="2021" class="to__textarea" name="toCreation" placeholder="to...">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div>
+                                <input class="custom-checkbox" type="checkbox" id="FAD" name="FAD" onclick="show('FAD', 'demoFAD')">
+                                <label for="FAD">First Album Date</label>
+                            </div>
+                            <div id="demoFAD" style="display:none">
+                                    <input type="number" min="1800" max="2021" name="fromFAD" placeholder="from..." class="from__textarea">
+                                    <input type="number" min="1800" max="2021" name="toFAD"  placeholder="to..." class="to__textarea">
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <input class="custom-checkbox" type="checkbox" id="NOM" name="NOM" onclick="show('NOM', 'demoNOM')">
+                                <label for="NOM">Number Of Members</label>
+                            </div>
+                            <div id="demoNOM" style="display:none">
+                                    <input type="number" min="1" max="15" name="fromNOM"  placeholder="from..." class="from__textarea">
+                                    <input type="number" min="1" max="15" name="toNOM"  placeholder="to..." class="to__textarea">
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <input class="custom-checkbox" type="checkbox" id="Location" name="Location" onclick="show('Location', 'demoL')">
+                                <label for="Location">Location</label>
+                            </div>                        
+                            <div id="demoL" class="filters">
+                                {{ range .General.Cities }}
+                                    <label class="locationsPInput"><input name="location" value="{{ .Name }}" type="checkbox">{{ .Name }}</label>
+                                {{ end }}
+                                
+                            </div>
+                        </div>
+                        <button class="btnHome" style="margin: 0;" type="filter" name="cv">Filter</button>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+        
+    </header>
+    <div class="TITLE" onclick="location.href='/';">
+        <h1  class="ProjName" style="text-align: center;">Groupie tracker</h1>
+    </div>
+    <section class="container">
+        
+        {{ if .Filter.Artists }}
+            <div class="showcase">
+                {{ if .Search.Artists }}
+                    {{range .Search.Artists}}
+                        <button class="artistCard" onclick="location.href='/artist/{{ .ID }}';">
+                            <div class="artistCard_img">
+                                <img src="{{ .Image }}" alt="{{ .Name }}">
+                            </div>
+                            <div class="artistCard_content">
+                                <span><h2>{{ .Name }}</h2></span>
+                                <p>Creation date: {{.CreationDate}}</p>
+                                <p>First album: {{.FirstAlbum}}</p>
+                            </div>
+                        </button>
+                    {{end}}
+                {{ else if .Noncorrect }}
+                    <span style="font-family: 'Montserrat', sans-serif; color: aliceblue;"><h1>No results found.</h1></span>
+                {{ else }}
+                    {{range .Filter.Artists}}
+                        <button class="artistCard" onclick="location.href='/artist/{{ .ID }}';">
+                            <div class="artistCard_img">
+                                <img src="{{ .Image }}" alt="{{ .Name }}">
+                            </div>
+                            <div class="artistCard_content">
+                                <span><h2>{{ .Name }}</h2></span>
+                                <p>Creation date: {{.CreationDate}}</p>
+                                <p>First album: {{.FirstAlbum}}</p>
+                            </div>
+                        </button>
+                    {{end}}
+                {{ end }}
+            </div>
+        {{ else }}
+            <span style="font-family: 'Montserrat', sans-serif; color: aliceblue;"><h1>No results found.</h1></span>
+        {{ end }}
+    </section>
+    <a href="#" title="returnUp" class="buttonup"><img class="upImg" src="/static/img/up.png"></a>
+    <footer>
+        <span>
+            by       
+            <span><a class="underline" href="https://git.01.alem.school/MangoMango" target="_blank">MangoMango</a>      and        
+                <a class="underline" href="https://git.01.alem.school/erdauletbatalov" target="_blank">erdauletbatalov</a>
+            </span>
+        </span>
+    </footer>
+    <script src="/static/js/filter.js">
+    </script>
+    <script>
+        var open = "{{ .Open }}"
+        if (open === "false") {
+            var years = confirm("Вам есть 18 лет?")
+            if (years === true) {
+                alert("Добро пожаловать")
+            } else {
+                alert("Я никому не скажу")
+            }
+        }
+    </script>
+</body>
+</html>

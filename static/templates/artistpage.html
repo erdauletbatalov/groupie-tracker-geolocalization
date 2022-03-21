@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/artistpagestyle.css">
+    <link rel="shortcut icon" href="/static/img/ico.png" type="image/x-icon">
+    <title>Artist</title>
+</head>
+<body>
+    <img class="back" src="/static/img/background.jpg" alt="">
+    <header>
+        <img class="alem" src="/static/img/ico.png" alt="logo">
+        <a href="/" class="btn">HOME</a> 
+    </header>
+        
+    <section class="container">
+
+        <div class="showcase">
+            <div class="artistCard">
+                <div class="artistCard_img">
+                    <div class="contents1">
+                        <img class="profileImage" src="{{ .ArtistID.Image }}" alt="{{ .ArtistID.Name }}">
+                        <span><h2>{{ .ArtistID.Name  }}</h2></span>
+                        <p>Creation date: {{.ArtistID.CreationDate}}</p>
+                        <p>First album: {{.ArtistID.FirstAlbum}}</p>
+                        <span>Members: </span>
+                        <ul>
+                            {{ range .ArtistID.Members }}
+                            <li>{{ . }}</li>
+                            <br>
+                            {{ end }}
+                        </ul>
+                    </div>
+                    
+                </div>
+                <div class="artistCard_content" id="artistCard_content">
+                    <div id="mapMode" class="mapMode"  style="display: none;" onclick="toggle('mapMode', 'defaultMode', 'artistCard_map', 'artistCard_content')">Map mode</div>                
+                    <div class="contents2">
+                        <p><h1>CONCERTS:</h1> </p>
+                        {{ range $key, $value := .ArtistID.DatesLocations }}
+                        <p>{{ $key }}:</p> 
+                        <ul>
+                            {{ range $value }}
+                            <li>{{ . }}</li>
+                            {{ end }}
+                        </ul>
+                        {{ end }}
+                    </div>
+                </div>
+                <div class="artistCard_map" id="artistCard_map">
+                    <div id="defaultMode" class="defaultMode" onclick="toggle('mapMode', 'defaultMode', 'artistCard_map', 'artistCard_content')">Default mode</div>
+                    <map id="map"></map>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <span>
+            by       
+            <span><a class="underline" href="https://git.01.alem.school/MangoMango" target="_blank">MangoMango</a>      and        
+                <a class="underline" href="https://git.01.alem.school/erdauletbatalov" target="_blank">erdauletbatalov</a>
+            </span>
+        </span>
+    </footer>
+    
+    <script src="/static/js/map.js"></script>
+    <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
+    <script type="text/javascript">
+    var map;
+
+        DG.then(function () {
+            map = DG.map('map', {
+                center: [{{(index .CitiesID 0).Latitude}}, {{(index .CitiesID 0).Longitude}}],
+                zoom: 5
+            });
+        {{range .CitiesID}}
+        DG.marker([{{.Latitude}}, {{.Longitude}}]).addTo(map).bindPopup('{{.Name}}');
+        {{ end }}
+        });
+    </script>
+    <script>
+        var open = "{{ .Close }}"
+        if (open === "false") {
+            var years = confirm("Вам есть 18 лет?")
+            if (years === true) {
+                alert("Добро пожаловать")
+            } else {
+                alert("Я никому не скажу")
+            }
+        }
+    </script>
+
+</body>
+</html>

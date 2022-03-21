@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+
+    font-weight: 100;
+}
+
+
+.back{
+    z-index: -1;
+    position: fixed;
+    width: 100%;
+}
+
+.container {
+    background: rgb(36, 40, 47) none repeat scroll 0% 0%;
+
+    padding: 4.5rem 0px;
+    display: flex;
+    -moz-box-pack: center;
+    justify-content: center;
+    -moz-box-align: center;
+    align-items: center;
+    
+    width: 100%;
+    min-height: calc(-60px + 50vh);
+}
+
+.showcase{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    max-width: 1920px;
+    max-height: 1080px;
+
+    text-align: center;
+}
+
+.artistCard{
+    width: 1600px;
+    height: 900px;
+    display: flex;
+    
+    border-radius: 0.5rem;
+    margin: 0.75rem;
+    color: rgb(255, 255, 255);
+}
+.artistCard_img{
+    background: rgb(60, 62, 68) none repeat scroll 0% 0%;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+
+    text-align: left;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    flex: 3 1 0%;
+    position: relative;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    
+    display: flex;
+    flex-direction: column;
+}
+.profileImage{
+    border-radius: 5%;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+}
+.artistCard_content{
+    background: rgb(60, 62, 68) none repeat scroll 0% 0%;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    flex: 3 1 0%;
+    position: relative;
+    padding: 0.75rem;
+    color: rgb(158, 158, 158);
+    border-radius: 0.5rem;
+    
+    display: none;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.artistCard_map {
+    background: rgb(60, 62, 68) none repeat scroll 0% 0%;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    flex: 3 1 0%;
+    position: relative;
+    padding: 0.75rem;
+    color: rgb(158, 158, 158);
+    border-radius: 0.5rem;
+    
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.contents1{
+    margin: auto;
+}
+.contents2{
+    color: white;
+    margin: auto;
+    text-transform: uppercase;
+}
+
+.btn{
+    color: rgb(0, 0, 0);
+    
+    margin:20px;
+    padding:0px 10px;
+    display:inline-flex;
+    box-sizing:border-box;
+    height:40px;
+    border:2px solid rgb(0, 0, 0);
+    border-radius:3px;
+    line-height:1;
+    
+    align-items:center;
+    align-content:center;
+    
+    font-weight:900;
+    font-size:1.1em;
+    text-decoration:none;
+    font-family: 'Open Sans', sans-serif;
+
+    transition: 0.2s;
+}
+.btn:hover {
+    background-color: black;
+    color: rgb(255, 255, 255);
+    border:2px solid rgb(0, 0, 0);
+}   
+
+/*alem logo*/
+.alem{
+    height: 65px;
+    width: 65px;
+}
+
+/*for stylizing link in footer*/
+.underline{
+    color: white;
+    text-decoration: none;
+    position: relative;
+}
+.underline::after{
+    background: white;
+
+    position: absolute;
+    bottom: -4px;
+    left: -10px;
+    
+    mix-blend-mode: exclusion;
+    width: calc(100% + 20px);
+    height: 0;
+
+    content: "";
+    
+    transition: all .3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+.underline:hover::after{
+    height: calc(100% + 8px)
+}
+footer{
+    background: rgb(32, 35, 41) none repeat scroll 0% 0%;
+    color: rgb(158, 158, 158);
+
+    display: flex;
+    -moz-box-pack: center;
+    justify-content: center;
+    -moz-box-align: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    position: relative;
+    padding: 4.5rem 0px;
+    min-height: calc(120px);
+    width: 100%;
+}
+.mapMode {
+    opacity: 0;
+    transition: 1s;
+    animation: show 1s 1;
+    animation-fill-mode: forwards;
+    animation-delay: 0.5s;
+
+    cursor: pointer;
+    
+    display: flex;
+    background: rgb(32, 35, 41) none repeat scroll 0% 0%;
+    color: rgb(158, 158, 158);
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+    flex-wrap: nowrap;
+    border-radius: 1rem;
+    padding: 10px 0;
+
+}
+
+.mapMode:hover {
+    box-shadow: none;
+    background: rgb(92, 92, 92);
+    transition: 0.3s;
+}
+
+.mapMode:active {
+    background: rgb(92, 92, 92);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    transition: 0.3s;
+}
+
+.defaultMode {
+    opacity: 0;
+    transition: 1s;
+    animation: show 1s 1;
+    animation-fill-mode: forwards;
+    animation-delay: 0.5s;
+
+    cursor: pointer;
+    display: flex;
+    background: rgb(32, 35, 41) none repeat scroll 0% 0%;
+    color: rgb(158, 158, 158);
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+    flex-wrap: nowrap;
+    padding: 10px 0;
+}
+
+.defaultMode:hover {
+    box-shadow: none;
+    background: rgb(92, 92, 92);
+    transition: 0.3s;
+}
+.defaultMode:active {
+    background: rgb(92, 92, 92);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    transition: 0.3s;
+}
+map {
+    width: 100%;
+    height: 100%;
+}
+@media (max-width: 1600px) {
+    div[class*="showcase"] {
+        max-width: 1200px;
+    }
+}
+@media (max-width: 1250px) {
+    div[class*="showcase"] {
+        max-width: 800px;
+    }
+    section[class*="container"] {
+        padding:  0 0 75px 0 ; 
+    }
+}
+@media (max-width: 850px) {
+    div[class*="artistCard"] {
+        max-width: 400px;
+        display: grid;
+        height: auto;
+    }
+    .showcase {
+        max-height: none;
+    }
+    .artistCard {
+        height: 700px;
+    }
+    map {
+        height: 700px;
+    }
+    
+    div[class*="showcase"] {
+        max-height: none;
+    }
+    section[class*="container"] {
+        display: inherit;
+        padding-top: 0;
+        min-width: 264px;
+    }
+    footer[class*="footer"] {
+        display: flex;
+        padding: 0 0 0 0;
+        min-width: 264px;
+    }
+}
+
+@keyframes show {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
